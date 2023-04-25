@@ -79,3 +79,36 @@ class EpisodeListItem : NSObject, NSCoding {
     }
 
 }
+
+class FileTools {
+    
+    // 获取文件夹下的所有文件
+    static func loadFolders() -> [String] {
+        do{
+            let path = Bundle.main.bundlePath
+            var folds = try FileManager.default.contentsOfDirectory(atPath: path)
+            folds = folds.map { $0.components(separatedBy: ".").first }.compactMap({$0}).removeDuplicates().sorted()
+            print(folds)
+            return folds
+        }catch{
+            return ["啥也没有"]
+        }
+    }
+}
+
+public extension Array where Element: Hashable {
+
+    /// 去除数组中重复的元素，如果有重复的，将优先保留前面的一个。
+    /// - Returns: 去重后的新数组
+    func removeDuplicates() -> [Element] {
+        var newAray: [Element] = []
+        var set = Set<Element>()
+        for item in self {
+            if !set.contains(item) {
+                newAray.append(item)
+                set.insert(item)
+            }
+        }
+        return newAray
+    }
+}
