@@ -170,7 +170,7 @@ public let jk_kScreenH16_9: CGFloat = jk_kScreenH * 16.0 / 9.0
 public extension UIView {
     // MARK: 3.1、x 的位置
     /// x 的位置
-    var x: CGFloat {
+    var w_x: CGFloat {
         get {
             return self.frame.origin.x
         }
@@ -182,7 +182,7 @@ public extension UIView {
     }
     // MARK: 3.2、y 的位置
     /// y 的位置
-    var y: CGFloat {
+    var w_y: CGFloat {
         get {
             return self.frame.origin.y
         }
@@ -195,7 +195,7 @@ public extension UIView {
     
     // MARK: 3.3、height: 视图的高度
     /// height: 视图的高度
-    var height: CGFloat {
+    var w_height: CGFloat {
         get {
             return self.frame.size.height
         }
@@ -208,7 +208,7 @@ public extension UIView {
     
     // MARK: 3.4、width: 视图的宽度
     /// width: 视图的宽度
-    var width: CGFloat {
+    var w_width: CGFloat {
         get {
             return self.frame.size.width
         }
@@ -221,7 +221,7 @@ public extension UIView {
     
     // MARK: 3.5、size: 视图的zize
     /// size: 视图的zize
-    var size: CGSize {
+    var w_size: CGSize {
         get {
             return self.frame.size
         }
@@ -234,7 +234,7 @@ public extension UIView {
     
     // MARK: 3.6、centerX: 视图的X中间位置
     /// centerX: 视图的X中间位置
-    var centerX: CGFloat {
+    var w_centerX: CGFloat {
         get {
             return self.center.x
         }
@@ -247,7 +247,7 @@ public extension UIView {
     
     // MARK: 3.7、centerY: 视图的Y中间位置
     /// centerY: 视图Y的中间位置
-    var centerY: CGFloat {
+    var w_centerY: CGFloat {
         get {
             return self.center.y
         }
@@ -260,7 +260,7 @@ public extension UIView {
     
     // MARK: 3.8、center: 视图的中间位置
     /// centerY: 视图Y的中间位置
-    var center: CGPoint {
+    var w_center: CGPoint {
         get {
             return self.center
         }
@@ -273,7 +273,7 @@ public extension UIView {
     
     // MARK: 3.9、top 上端横坐标(y)
     /// top 上端横坐标(y)
-    var top: CGFloat {
+    var w_top: CGFloat {
         get {
             return self.frame.origin.y
         }
@@ -286,7 +286,7 @@ public extension UIView {
     
     // MARK: 3.10、left 左端横坐标(x)
     /// left 左端横坐标(x)
-    var left: CGFloat {
+    var w_left: CGFloat {
         get {
             return self.frame.origin.x
         }
@@ -299,7 +299,7 @@ public extension UIView {
     
     // MARK: 3.11、bottom 底端纵坐标 (y + height)
     /// bottom 底端纵坐标 (y + height)
-    var bottom: CGFloat {
+    var w_bottom: CGFloat {
         get {
             return self.frame.origin.y + self.frame.size.height
         }
@@ -310,7 +310,7 @@ public extension UIView {
     
     // MARK: 3.12、right 底端纵坐标 (x + width)
     /// right 底端纵坐标 (x + width)
-    var right: CGFloat {
+    var w_right: CGFloat {
         get {
             return self.frame.origin.x + self.frame.size.width
         }
@@ -321,7 +321,7 @@ public extension UIView {
     
     // MARK: 3.13、origin 点
     /// origin 点
-    var origin: CGPoint {
+    var w_origin: CGPoint {
         get {
             return self.frame.origin
         }
@@ -607,7 +607,7 @@ public extension UIView {
     ///   - strokeColor: 外环的颜色
     ///   - strokeWidth: 外环的宽度
     func drawCircle(fillColor: UIColor, strokeColor: UIColor, strokeWidth: CGFloat) {
-        let ciecleRadius = self.width > self.height ? self.height : self.width
+        let ciecleRadius = self.w_width > self.w_height ? self.w_height : self.w_width
         let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: ciecleRadius, height: ciecleRadius), cornerRadius: ciecleRadius / 2)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
@@ -629,7 +629,7 @@ public extension UIView {
                       lineSpacing: Int = 4,
                         direction: JKDashLineDirection = .horizontal) {
         // 线粗
-        let lineWidth = direction == .horizontal ? self.height : self.width
+        let lineWidth = direction == .horizontal ? self.w_height : self.w_width
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.bounds = self.bounds
@@ -648,12 +648,12 @@ public extension UIView {
             path.move(to: CGPoint(x: 0, y: lineWidth / 2))
             // 终点
             // 横向 y = lineWidth / 2
-            path.addLine(to: CGPoint(x: self.width, y: lineWidth / 2))
+            path.addLine(to: CGPoint(x: self.w_width, y: lineWidth / 2))
         } else {
             path.move(to: CGPoint(x: lineWidth / 2, y: 0))
             // 终点
             // 纵向 Y = view 的height
-            path.addLine(to: CGPoint(x: lineWidth / 2, y: self.height))
+            path.addLine(to: CGPoint(x: lineWidth / 2, y: self.w_height))
         }
         shapeLayer.path = path
         self.layer.addSublayer(shapeLayer)
@@ -701,7 +701,7 @@ public extension UIView {
         if let weakSize = size {
             visualEffectViewSize = weakSize
         } else {
-            visualEffectViewSize = self.size
+            visualEffectViewSize = self.w_size
         }
         let visualEffectView = UIVisualEffectView.visualEffectView(size: visualEffectViewSize, alpha: alpha, style: style, isAddVibrancy: false)
         self.addSubview(visualEffectView)
@@ -860,9 +860,9 @@ public extension UIView {
         let waterMark: NSString = markText.toNSString
         let textSize: CGSize = waterMark.size(withAttributes: [NSAttributedString.Key.font : font])
         // 多少行
-        let line: NSInteger = NSInteger(self.height * 3.5 / 80)
+        let line: NSInteger = NSInteger(self.w_height * 3.5 / 80)
         // 多少列：自己的宽度/(每个水印的宽度+间隔)
-        let row: NSInteger = NSInteger(self.width / markText.rectWidth(font: font, size: CGSize(width: self.width, height: CGFloat(MAXFLOAT))))
+        let row: NSInteger = NSInteger(self.w_width / markText.rectWidth(font: font, size: CGSize(width: self.w_width, height: CGFloat(MAXFLOAT))))
         for i in 0..<line {
             for j in 0..<row {
                 let textLayer: CATextLayer = CATextLayer()
@@ -1226,7 +1226,7 @@ public extension UIView {
         // 获取渐变对象
         let gradientLayer = CAGradientLayer().gradientLayer(direction, gradientColors, gradientLocations)
         // 设置其CAGradientLayer对象的frame，并插入view的layer
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.width, height: self.height)
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.w_width, height: self.w_height)
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
     
@@ -1241,7 +1241,7 @@ public extension UIView {
         // 获取渐变对象
         let gradientLayer = CAGradientLayer().gradientLayer(direction, startGradientColors, gradientLocations)
         // 设置其CAGradientLayer对象的frame，并插入view的layer
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.width, height: self.height)
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.w_width, height: self.w_height)
         self.layer.insertSublayer(gradientLayer, at: 0)
         
         startgradientColorAnimation(gradientLayer, startGradientColors, endGradientColors, duration)

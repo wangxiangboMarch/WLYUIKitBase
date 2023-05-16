@@ -13,13 +13,13 @@ public extension NSObject {
     
     // MARK: 1.1、类名（对象方法）
     /// 类名
-    var className: String {
-        return type(of: self).className
+    var w_className: String {
+        return type(of: self).w_className
     }
     
     // MARK: 1.2、类名（类方法）
     /// 类名
-    static var className: String {
+    static var w_className: String {
         return String(describing: self)
     }
 }

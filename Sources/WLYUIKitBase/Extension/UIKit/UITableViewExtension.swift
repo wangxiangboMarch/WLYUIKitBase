@@ -48,14 +48,14 @@ public extension UITableView {
     /// 注册自定义cell
     /// - Parameter cellClass: UITableViewCell类型
     func register(cellClass: UITableViewCell.Type) {
-        self.register(cellClass.self, forCellReuseIdentifier: cellClass.className)
+        self.register(cellClass.self, forCellReuseIdentifier: cellClass.w_className)
     }
     
     // MARK: 1.6、注册Xib自定义cell
     /// 注册Xib自定义cell
     /// - Parameter nib: nib description
     func register(nib: UINib) {
-        self.register(nib, forCellReuseIdentifier: nib.className)
+        self.register(nib, forCellReuseIdentifier: nib.w_className)
     }
     
     // MARK: 1.7、创建UITableViewCell(注册后使用该方法)
@@ -65,7 +65,7 @@ public extension UITableView {
     ///   - indexPath: indexPath description
     /// - Returns: 返回UITableViewCell类型
     func dequeueReusableCell<T: UITableViewCell>(cellType: T.Type, cellForRowAt indexPath: IndexPath) -> T {
-        return self.dequeueReusableCell(withIdentifier: cellType.className, for: indexPath) as! T
+        return self.dequeueReusableCell(withIdentifier: cellType.w_className, for: indexPath) as! T
     }
 }
 
