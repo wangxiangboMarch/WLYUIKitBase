@@ -7,23 +7,6 @@
 
 import Foundation
 
-//MARK: -  基本的扩展
-public extension NSNumber {
-    
-    // MARK: 1.1、保留位数的设置
-    /// minDigits: 最小四舍五入应保留多少小数位
-    /// maxDigits: 最大保留几个小数位
-    func numberFormatter(with mode: NumberFormatter.RoundingMode = .halfEven, minDigits: Int = 0, maxDigits:Int = 0) -> String? {
-        return self.numberFormatter(with: mode, minDigits: minDigits, maxDigits: maxDigits)
-    }
-    
-    // MARK: 1.2、保留两位小数
-    /// 保留两位小数
-    func numberFormatter() -> String? {
-        return self.numberFormatter(with: .halfEven, minDigits: 0, maxDigits: 2)
-    }
-}
-
 //MARK:- 扩展NSNumber的内部方法
 public extension NSNumber {
     

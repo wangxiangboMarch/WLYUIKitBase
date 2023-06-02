@@ -46,7 +46,7 @@ public class QRCodeManager {
         guard let imageData = logoName else { return orginQRImage }
         
         //根据二维码图片设置生成水印图片rect
-        let waterImageRect = QRCodeManager.getWaterImageRectFromOutputQRImage(orginQRImage: orginQRImage ?? UIImage())
+        let waterImageRect = QRCodeManager.getWaterImageRectFromOutputQRImage(orginQRImage: orginQRImage )
         
         guard let logo = UIImage(data: imageData)?.scaleToSize(size: waterImageRect.size) else { return orginQRImage }
         //生成水印图片 rect 从00 开始
@@ -130,7 +130,7 @@ public class QRCodeManager {
         let context = CIContext()
         
         let bitmapImage = context.createCGImage(image, from: extent)
-        bitmapImage?.colorSpace
+//        bitmapImage?.colorSpace
         bitmapRef?.interpolationQuality = .none
         bitmapRef?.scaleBy(x: scale, y: scale)
         

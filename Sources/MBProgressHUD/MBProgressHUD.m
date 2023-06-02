@@ -379,7 +379,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
                 activityIndicator.color = [UIColor whiteColor];
 #if !TARGET_OS_MACCATALYST
             } else {
-               activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+                activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
             }
 #endif
             [activityIndicator startAnimating];
@@ -738,19 +738,30 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 
 #pragma mark - Notifications
 
+
 - (void)registerForNotifications {
 #if !TARGET_OS_TV && !TARGET_OS_MACCATALYST
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+//    viewWillTransitionToSize
+//    [self viewWillTransitionToSize];
+    
+    //开始生成 设备旋转 通知
+      [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+      
+      //添加 设备旋转 通知
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationDidChange:)  name:UIDeviceOrientationDidChangeNotification object:nil];
 
-    [nc addObserver:self selector:@selector(statusBarOrientationDidChange:)
-               name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+ 
+//    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+//
+//    [nc addObserver:self selector:@selector(statusBarOrientationDidChange:)
+//               name: UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 #endif
 }
 
 - (void)unregisterFromNotifications {
 #if !TARGET_OS_TV && !TARGET_OS_MACCATALYST
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    [nc removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 #endif
 }
 

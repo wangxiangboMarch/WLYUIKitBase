@@ -66,14 +66,7 @@ func errorMessageForLAErrorCode(errorCode: Int) -> String {
         
     case LAError.systemCancel.rawValue:
         message = "Authentication was cancelled by the system"
-        
-    case LAError.touchIDLockout.rawValue:
-        message = "Too many failed attempts."
-        
-    case LAError.touchIDNotAvailable.rawValue:
-        message = "TouchID is not available on the device"
-        
-        
+
     case LAError.userCancel.rawValue:
         message = "The user did cancel"
         

@@ -79,7 +79,7 @@ extension StackViewControllerProtocol {
     
     /// 移除所有子视图
     public func removeAll() {
-        stackView.arrangedSubviews.map {
+        stackView.arrangedSubviews.forEach {
             stackView.removeArrangedSubview($0)
             $0.removeFromSuperview()
         }
