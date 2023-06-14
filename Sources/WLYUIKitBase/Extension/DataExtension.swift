@@ -39,4 +39,8 @@ public extension Data {
         return [UInt8](self)
     }
     
+    func hexadecimal() -> String {
+            return map { String(format: "%02x", $0) }
+                .joined(separator: "")
+        }
 }
